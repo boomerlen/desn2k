@@ -102,8 +102,14 @@
         <mxCell id="oiTr4Knq5z3vlvktKzUw-33" value="Target Consistent 33-35 Degree Setpoint" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
           <mxGeometry x="50" y="370" width="120" height="80" as="geometry" />
         </mxCell>
+        <mxCell id="oiTr4Knq5z3vlvktKzUw-41" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;dashed=1;dashPattern=8 8;" edge="1" parent="1" source="oiTr4Knq5z3vlvktKzUw-34" target="oiTr4Knq5z3vlvktKzUw-35">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
         <mxCell id="oiTr4Knq5z3vlvktKzUw-34" value="Drive Heater" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
           <mxGeometry x="255" y="295" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="oiTr4Knq5z3vlvktKzUw-40" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=0;exitDx=0;exitDy=0;entryX=0.25;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="oiTr4Knq5z3vlvktKzUw-35" target="oiTr4Knq5z3vlvktKzUw-34">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="oiTr4Knq5z3vlvktKzUw-35" value="Record Ambient Temperature" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
           <mxGeometry x="255" y="445" width="120" height="80" as="geometry" />
