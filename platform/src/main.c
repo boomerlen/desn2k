@@ -1,6 +1,18 @@
+#include "system.h"
+
+struct system_state state = {
+    .crazy = 3
+};
+
 int main() {
 	
-	int test_var = 0;
-	test_var += 3;
+    system_setup();
+
+    enter_mode_away();
+
+    while (1) {
+        // Done
+    }
+
 	return 0;
 }
