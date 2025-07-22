@@ -20,10 +20,10 @@ then:
 ### Make a new branch for your work 
 
 Either can do this on github.com or
-```git branch -M [new-branch-name]```
+```git branch -M new-branch-name```
 
 
-```git checkout [new-branch-name]```
+```git checkout new-branch-name```
 
 ### When you have finished making changes (or want to upload your changes)
 
