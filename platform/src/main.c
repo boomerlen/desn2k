@@ -11,8 +11,8 @@ int main() {
     enter_mode_away();
 
     while (1) {
-        // Done
-        // Trent is able to more push to git   
+        // Dones
+        // Testing stuff
     }
 
 	return 0;
