@@ -21,19 +21,23 @@ then:
 
 Either can do this on github.com or
 ```git branch -M [new-branch-name]```
+
+
 ```git checkout [new-branch-name]```
 
 ### When you have finished making changes (or want to upload your changes)
 
 1. "Stage" your changes 
 ```git add --all```
-or 
+
+or
+
 ```git add .```
 
-2. "Commit" your changes
+1. "Commit" your changes
 ```git commit -m "a little message explaining what happened"```
 
-3. "Push" your changes
+2. "Push" your changes
 ```git push```
 
 ### Make a PR 
