@@ -25,22 +25,22 @@ Full system diagram:
 ## Event Diagrams 
 
 Clock alarm event:
-![](assets/events/ClockAlarm.draio)
+![](assets/events/ClockAlarm.drawio)
 
 Coffee event:
-![](assets/events/CoffeeEvent.draio)
+![](assets/events/CoffeeEvent.drawio)
 
 Doorbell button event:
-![](assets/events/DoorbellButtonEvent.draio)
+![](assets/events/DoorbellButtonEvent.drawio)
 
 Idle:
-![](assets/events/Idle.draio)
+![](assets/events/Idle.drawio)
 
 Sensor timer event:
-![](assets/events/SensorTimerEvent.draio)
+![](assets/events/SensorTimerEvent.drawio)
 
 Touch event:
-![](assets/events/TouchEvent.draio)
+![](assets/events/TouchEvent.drawio)
 
 ## Notes
 
