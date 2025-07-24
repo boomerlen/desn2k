@@ -14,7 +14,7 @@ jobs:
   export-docs-png:
     runs-on: ubuntu-latest
     permissions:
-      contents: [read, write]
+      contents: write
       packages: read
     container:
       image: ghcr.io/boomerlen/python-reqs:latest
