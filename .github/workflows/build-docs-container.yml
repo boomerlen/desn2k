@@ -1,0 +1,44 @@
+name: build-push-python-reqs-container
+on:
+  push:
+    branches: ['main']
+    paths:
+      - 'Docs/Dev/Dockerfile'
+  pull_request:
+    types: [opened, synchronize]
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: python-reqs
+jobs:
+  build-python-reqs-container:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+      id-token: write
+    
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Log in to GH container reg 
+        uses: docker/login-action@v3
+        with:
+          registry: ${{env.REGISTRY}}
+          username: ${{github.actor}}
+          password: $${secrets.GITHUB_TOKEN}}
+
+      - name: Extract metadata (ripped off)
+        id: meta 
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{env.REGISTRY}}/${{env.IMAGE_NAME}}
+
+      - name: Build and push Docker image
+        id: push
+        uses: docker/build-push-action@v6
+        with:
+          context: ${{GITHUB_WORKSPACE}}/Docs/Dev
+          push: true 
+          tags: ${{steps.meta.outputs.tags}}
+          labels: ${{steps.meta.outputs.labels}}
