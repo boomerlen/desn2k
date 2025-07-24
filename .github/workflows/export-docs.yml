@@ -34,7 +34,7 @@ jobs:
 
       - name: Call script
         run: |
-          while IFS= read -r diag
+          while IFS= read -r diag;
           do
             dest=$(echo $diag | sed 's/\Dev//')
             echo "WOULD translate $diag to $dest"
