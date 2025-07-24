@@ -3,7 +3,7 @@ on:
   pull_request:
     types: [opened, synchronize]
     paths:
-      - 'docs'
+      - 'docs/**'
 jobs:
   build-docs:
     runs-on: ubuntu-latest
