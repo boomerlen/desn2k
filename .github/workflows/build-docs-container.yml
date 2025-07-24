@@ -6,6 +6,8 @@ on:
       - 'Docs/Dev/Dockerfile'
   pull_request:
     types: [opened, synchronize]
+    paths:
+      - 'Docs/Dev/Dockerfile'
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: python-reqs
