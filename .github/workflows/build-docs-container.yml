@@ -40,5 +40,5 @@ jobs:
         with:
           file: ./Docs/Dev/Dockerfile
           push: true
-          tags: ${{steps.meta.outputs.tags}}
+          tags: dev/python-container
           labels: ${{steps.meta.outputs.labels}}
