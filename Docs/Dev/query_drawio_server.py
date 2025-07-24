@@ -8,7 +8,7 @@ if len(sys.argv != 3):
 file_in = sys.argv[1]
 file_out = sys.argv[2]
 
-export_url = "http://127.0.0.1:8000/export"
+export_url = "http://drawio-export:8000/export"
 
 with open(file_in, "r") as f:
     data = f.read()

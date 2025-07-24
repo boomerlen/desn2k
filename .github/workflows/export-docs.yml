@@ -10,26 +10,30 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: python-reqs
-jobs:
-  build-python-reqs-container:
-    runs-on: ubuntu-latest
-    permissions:
-      packages: write
-      contents: read
-      attestations: write
-      id-token: write
-    steps:
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v6
-        with:
-          file: '${{GITHUB_WORKSPACE}/Docs/Dev/Dockerfile'
-    
   export-docs-png:
     runs-on: ubuntu-latest
-    container: ' ${{GITHUB_WORKSPACE}}/Docs/Dev/Dockerfile '
+    container:
+      image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
     services:
       drawio-export:
         image: jgraph/drawio-export
         ports:
           - 8000:8000
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Iterate docs
+        run: DOCS=$(find Docs/Dev -regex '.*[\.drawio]$')
+
+      - name: Call script
+        run: |
+          while IFS= read -r diag
+          do
+            dest=$(echo $diag | sed 's/\Dev//')
+            echo "WOULD translate $diag to $dest"
+            #python Docs/Dev/query_drawio_server.py $diag $dest
+          done <<< $DOCS
 
