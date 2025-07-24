@@ -4,8 +4,7 @@ LABEL org.opencontainers.image.source=https://github.com/boomerlen/desn2k
 LABEL org.opencontainers.image.description="Simple MKDocs launcher container"
 LABEL org.opencontainers.image.licences=MIT
 
-RUN apt update && \
-    apt install -y git
+RUN apk add --no-cache git
 
 RUN python -m pip install mkdocs
 
