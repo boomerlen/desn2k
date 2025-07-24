@@ -16,5 +16,8 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      - name: Workaround
+        run: git config --global --add safe.directory "${{ GITHUB_WORKSPACE }}"
+
       - name: Deploy docs 
         run: mkdocs gh-deploy
