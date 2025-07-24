@@ -21,6 +21,10 @@ then:
 
 Either can do this on github.com or
 
+```git chcekout main```
+
+(^^ Confirm you start making changes from main)
+
 ```git branch -b new-branch-name```
 
 
