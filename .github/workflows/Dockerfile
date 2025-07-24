@@ -10,4 +10,4 @@ RUN python -m pip install mkdocs
 
 RUN python -m pip install mkdocs-drawio
 
-cmd ["/bin/bash"]
+CMD ["/bin/bash"]
