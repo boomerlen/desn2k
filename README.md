@@ -21,11 +21,11 @@ then:
 
 Either can do this on github.com or
 
-```git chcekout main```
+```git checkout main```
 
 (^^ Confirm you start making changes from main)
 
-```git branch -b new-branch-name```
+```git checkout -b new-branch-name```
 
 
 ### When you have finished making changes (or want to upload your changes)
