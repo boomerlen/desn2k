@@ -2,7 +2,7 @@ name: build-docs
 on:
   push:
     paths:
-      - 'docs/'
+      - 'docs'
 jobs:
   build-docs:
     runs-on: ubuntu-latest
