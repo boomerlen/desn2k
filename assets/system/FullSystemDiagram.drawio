@@ -1,0 +1,230 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:140.0) Gecko/20100101 Firefox/140.0" version="28.0.4">
+  <diagram name="Page-1" id="Nmc71GiZ19QNDvv-eauK">
+    <mxGraphModel dx="1771" dy="668" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="583" pageHeight="413" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="LGLI5eE1O-rHdU-4wHcF-1" target="LGLI5eE1O-rHdU-4wHcF-7">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="274" y="110" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-9" value="&lt;div&gt;&lt;i&gt;BellTone&lt;/i&gt;&lt;/div&gt;&lt;div&gt;GPIO PWM&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="LGLI5eE1O-rHdU-4wHcF-8">
+          <mxGeometry x="-0.2141" y="-1" relative="1" as="geometry">
+            <mxPoint x="52" y="-1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="LGLI5eE1O-rHdU-4wHcF-1" target="LGLI5eE1O-rHdU-4wHcF-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-12" value="&lt;div&gt;&lt;i&gt;LCDData&lt;/i&gt;&lt;/div&gt;&lt;div&gt;Memory Mapped&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="LGLI5eE1O-rHdU-4wHcF-11">
+          <mxGeometry x="-0.2213" relative="1" as="geometry">
+            <mxPoint x="11" y="-15" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="LGLI5eE1O-rHdU-4wHcF-1" target="LGLI5eE1O-rHdU-4wHcF-27">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-30" value="&lt;div&gt;&lt;i&gt;BlindLevel[5:0]&lt;/i&gt;&lt;/div&gt;&lt;div&gt;GPIO&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="LGLI5eE1O-rHdU-4wHcF-29">
+          <mxGeometry x="-0.1761" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=0;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="LGLI5eE1O-rHdU-4wHcF-1" target="LGLI5eE1O-rHdU-4wHcF-32">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-36" value="&lt;div&gt;&lt;i&gt;RTCData&lt;/i&gt;&lt;/div&gt;&lt;div&gt;Memory Mapped&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="LGLI5eE1O-rHdU-4wHcF-35">
+          <mxGeometry x="0.6729" relative="1" as="geometry">
+            <mxPoint x="30" y="8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="LGLI5eE1O-rHdU-4wHcF-1" target="LGLI5eE1O-rHdU-4wHcF-31">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="205" y="310" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-39" value="&lt;div&gt;&lt;i&gt;CoffeeEnable&lt;/i&gt;&lt;/div&gt;&lt;div&gt;GPIO&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="LGLI5eE1O-rHdU-4wHcF-38">
+          <mxGeometry x="0.5215" y="-1" relative="1" as="geometry">
+            <mxPoint x="36" y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-41" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="LGLI5eE1O-rHdU-4wHcF-1" target="LGLI5eE1O-rHdU-4wHcF-40">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="220" y="340" />
+              <mxPoint x="90" y="340" />
+              <mxPoint x="90" y="400" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-42" value="&lt;div&gt;&lt;i&gt;DHTReq&lt;/i&gt;&lt;/div&gt;&lt;div&gt;Bit-Banged GPIO&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="LGLI5eE1O-rHdU-4wHcF-41">
+          <mxGeometry x="-0.1082" y="-1" relative="1" as="geometry">
+            <mxPoint x="-23" y="11" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-48" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="LGLI5eE1O-rHdU-4wHcF-1" target="LGLI5eE1O-rHdU-4wHcF-47">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="250" y="490" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-49" value="&lt;div&gt;&lt;i&gt;HeaterEn&lt;/i&gt;&lt;/div&gt;&lt;div&gt;GPIO PWM&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="LGLI5eE1O-rHdU-4wHcF-48">
+          <mxGeometry x="0.3234" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-1" value="LPC2478" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="170" y="170" width="138" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="LGLI5eE1O-rHdU-4wHcF-2" target="LGLI5eE1O-rHdU-4wHcF-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-2" value="Doorbell Button" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="470" y="20" width="90" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="LGLI5eE1O-rHdU-4wHcF-3" target="LGLI5eE1O-rHdU-4wHcF-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-5" value="&lt;i&gt;BellButton&lt;/i&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="LGLI5eE1O-rHdU-4wHcF-4">
+          <mxGeometry x="0.0307" y="-2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-19" value="GPIO Interrupt" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="LGLI5eE1O-rHdU-4wHcF-4">
+          <mxGeometry x="0.6662" y="-3" relative="1" as="geometry">
+            <mxPoint y="-52" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-3" value="Analog Debouncer" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="340" y="28.75" width="100" height="32.5" as="geometry" />
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-7" value="Doorbell Speaker" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="455" y="90" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-14" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="LGLI5eE1O-rHdU-4wHcF-10" target="LGLI5eE1O-rHdU-4wHcF-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-10" value="LPC2478 LCD Controller" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="440" y="177" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.75;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="LGLI5eE1O-rHdU-4wHcF-13" target="LGLI5eE1O-rHdU-4wHcF-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-16" value="&lt;div&gt;&lt;i&gt;TouchInterrupt&lt;/i&gt;&lt;/div&gt;&lt;div&gt;GPIO Interrupt&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="LGLI5eE1O-rHdU-4wHcF-15">
+          <mxGeometry x="-0.4695" relative="1" as="geometry">
+            <mxPoint x="-17" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="LGLI5eE1O-rHdU-4wHcF-13" target="LGLI5eE1O-rHdU-4wHcF-20">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="500" y="420" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-13" value="LCD Touchscreen" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="440" y="320" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-20" value="TCS2046 Touchscreen Controller" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="390" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="LGLI5eE1O-rHdU-4wHcF-24" target="LGLI5eE1O-rHdU-4wHcF-1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="50" y="70" />
+              <mxPoint x="50" y="225" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-26" value="&lt;div&gt;&lt;i&gt;LightIn&lt;/i&gt;&lt;/div&gt;&lt;div&gt;ADC&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="LGLI5eE1O-rHdU-4wHcF-25">
+          <mxGeometry x="-0.1721" y="1" relative="1" as="geometry">
+            <mxPoint x="-1" y="-20" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-24" value="&lt;div&gt;TEMT6000&lt;/div&gt;&lt;div&gt;Light Sensor&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-110" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-27" value="Blind Level Indicator LED Array (6 LEDs)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-110" y="140" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-31" value="Coffee Machine Active Indicator (1 LED)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-110" y="280" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="LGLI5eE1O-rHdU-4wHcF-32" target="LGLI5eE1O-rHdU-4wHcF-1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="160" y="125" />
+              <mxPoint x="205" y="125" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-32" value="LPC2478 RTC" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="70" y="20" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.364;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="LGLI5eE1O-rHdU-4wHcF-32" target="LGLI5eE1O-rHdU-4wHcF-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-34" value="&lt;div&gt;&lt;i&gt;TimeAlert&lt;br&gt;&lt;/i&gt;&lt;/div&gt;&lt;div&gt;Internal Interrupt&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="LGLI5eE1O-rHdU-4wHcF-33">
+          <mxGeometry x="-0.2639" y="-3" relative="1" as="geometry">
+            <mxPoint x="-7" y="28" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-40" value="DHT22 Temperature Sensor" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-110" y="370" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-43" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0.431;entryY=1.018;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="LGLI5eE1O-rHdU-4wHcF-40" target="LGLI5eE1O-rHdU-4wHcF-1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="229" y="415" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-44" value="&lt;div&gt;&lt;i&gt;DHTRes&lt;/i&gt;&lt;/div&gt;&lt;div&gt;Bit-Banged GPIO&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="LGLI5eE1O-rHdU-4wHcF-43">
+          <mxGeometry x="-0.4554" y="2" relative="1" as="geometry">
+            <mxPoint x="44" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-45" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.671;entryY=1.034;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="LGLI5eE1O-rHdU-4wHcF-20" target="LGLI5eE1O-rHdU-4wHcF-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-46" value="&lt;div&gt;&lt;i&gt;TouchData&lt;/i&gt;&lt;/div&gt;&lt;div&gt;SPI Bus&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="LGLI5eE1O-rHdU-4wHcF-45">
+          <mxGeometry x="-0.1446" relative="1" as="geometry">
+            <mxPoint x="29" y="7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-47" value="&lt;div&gt;Heater Intensity Indicator&lt;/div&gt;&lt;div&gt;(1 LED)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="90" y="460" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-51" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;dashed=1;dashPattern=8 8;" vertex="1" parent="1">
+          <mxGeometry x="-130" y="350" width="390" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-52" value="Temperature Control" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-130" y="470" width="150" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-53" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;dashed=1;dashPattern=8 8;" vertex="1" parent="1">
+          <mxGeometry x="-140" y="7.5" width="180" height="205" as="geometry" />
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-54" value="Ambient Light Control" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-130" y="10" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-55" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;dashed=1;dashPattern=8 8;" vertex="1" parent="1">
+          <mxGeometry x="292" width="300" height="142.5" as="geometry" />
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-56" value="Doorbell Concept" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="292" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-57" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;dashed=1;dashPattern=8 8;" vertex="1" parent="1">
+          <mxGeometry x="290" y="170" width="290" height="310" as="geometry" />
+        </mxCell>
+        <mxCell id="LGLI5eE1O-rHdU-4wHcF-60" value="LCD Concept" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="435" y="440" width="130" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
