@@ -13,10 +13,8 @@ jobs:
   build-python-reqs-container:
     runs-on: ubuntu-latest
     permissions:
-      packages: write
       contents: read
-      id-token: write
-      attestations: write
+      packages: write
     
     steps:
       - name: Checkout repo
@@ -35,4 +33,4 @@ jobs:
         with:
           file: ./Docs/Dev/Dockerfile
           push: true
-          tags: dev/python-container:latest
+          tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest
