@@ -20,4 +20,4 @@ jobs:
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
       - name: Deploy docs 
-        run: mkdocs gh-deploy
+        run: mkdocs gh-deploy --force
