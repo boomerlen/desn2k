@@ -1,0 +1,5 @@
+site_name: DESN2k Project
+nav:
+  - Home: index.md 
+plugins:
+  - drawio

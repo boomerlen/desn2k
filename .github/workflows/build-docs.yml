@@ -1,0 +1,23 @@
+name: build-docs
+on:
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - 'docs/**'
+jobs:
+  build-docs:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: read
+    container:
+      image: ghcr.io/boomerlen/docs-container:latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Workaround
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+      - name: Deploy docs 
+        run: mkdocs gh-deploy --force

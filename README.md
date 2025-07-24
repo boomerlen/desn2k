@@ -1,5 +1,10 @@
 # DESN2K
-See Docs for Docs
+
+We now have published docs!
+
+https://boomerlen.github.io/desn2k/
+
+See below for development details
 
 ## How to access this
 
