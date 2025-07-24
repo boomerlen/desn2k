@@ -7,11 +7,17 @@ on:
       - reopened
     paths:
       - 'Docs/**'
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: python-reqs
 jobs:
   export-docs-png:
     runs-on: ubuntu-latest
+    permissions:
+      contents: [read, write]
+      packages: read
     container:
-      image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+      image: ghcr.io/boomerlen/python-reqs:latest
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
@@ -20,9 +26,6 @@ jobs:
         image: jgraph/drawio-export
         ports:
           - 8000:8000
-    env:
-      REGISTRY: ghcr.io
-      IMAGE_NAME: python-reqs
     steps:
       - uses: actions/checkout@v2
 
