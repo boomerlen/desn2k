@@ -10,6 +10,7 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: python-reqs
+jobs:
   export-docs-png:
     runs-on: ubuntu-latest
     container:
