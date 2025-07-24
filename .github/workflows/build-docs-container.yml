@@ -1,16 +1,18 @@
-name: build-push-python-reqs-container
+name: build-push-docs-container
 on:
   push:
     branches: ['main']
     paths:
-      - 'Docs/Dev/Dockerfile'
+      - '.github/workflows/Dockerfile'
   pull_request:
     types: [opened, synchronize]
+    paths:
+      - '.github/workflows/Dockerfile'
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: python-reqs
+  IMAGE_NAME: docs-container
 jobs:
-  build-python-reqs-container:
+  build-docs-container:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -31,6 +33,6 @@ jobs:
         id: push
         uses: docker/build-push-action@v6
         with:
-          file: ./Docs/Dev/Dockerfile
+          file: .github/workflows/Dockerfile
           push: true
           tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest
