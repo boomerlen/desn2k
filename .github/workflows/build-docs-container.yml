@@ -16,6 +16,7 @@ jobs:
       packages: write
       contents: read
       id-token: write
+      attestations: write
     
     steps:
       - name: Checkout repo
@@ -28,17 +29,10 @@ jobs:
           username: ${{github.actor}}
           password: ${{secrets.GITHUB_TOKEN}}
 
-      - name: Extract metadata (ripped off)
-        id: meta 
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{env.REGISTRY}}/${{env.IMAGE_NAME}}
-
       - name: Build and push Docker image
         id: push
         uses: docker/build-push-action@v6
         with:
           file: ./Docs/Dev/Dockerfile
           push: true
-          tags: dev/python-container
-          labels: ${{steps.meta.outputs.labels}}
+          tags: dev/python-container:latest
