@@ -23,7 +23,7 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     services:
       drawio-export:
-        image: jgraph/drawio-export
+        image: jgraph/export-server
         ports:
           - 8000:8000
     steps:
