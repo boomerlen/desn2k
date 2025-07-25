@@ -1,18 +1,30 @@
-#include "system.h"
+#include "coffee.h"
+#include "clock.h"
+#include "sensors.h"
+#include "doorbell.h"
+#include "gpio_output.h"
 
-struct system_state state = {
-    .crazy = 3
-};
+#include "bees.h"
 
-int main() {
-	
-    system_setup();
+struct bee_first_order_system {
+    struct bee_emotions *bee_bee_bee;
+    struct clock_status *bee_oclock;
+} bee_system;
 
-    enter_mode_away();
+queen_bee {
+    bee_system.bee_bee_bee = sensor_setup();	
 
-    while (1) {
+    bee_system.bee_oclock = setup_clock();
+
+    setup_bee_envigorator();
+
+    doorbell_setup();
+    
+    configure_gpio();
+
+    busy_bee {
         // Done
     }
 
-	return 0;
+	return happy_bee;
 }
