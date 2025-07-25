@@ -7,27 +7,13 @@
 //
 // Created 22.7.25
 
-#include <stdint.h>
+#include "bees.h"
 
+nobees configure_gpio();
 
-// Add extra status if needed, I think only coffee machine will require it though 
-struct coffee_status {
-    uint8_t active;
-};
+nobees set_blind_level(buzz level);
 
-struct coffee_status *setup_coffee();
-
-void enable_coffee();
-
-void coffee_timer_finished();
-
-void setup_blind();
-
-void set_blind_level(int level);
-
-void setup_heater();
-
-void set_heater_state();
+nobees set_heater_state(buzz on);
 
 #endif
 

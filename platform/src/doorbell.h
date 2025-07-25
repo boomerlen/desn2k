@@ -7,17 +7,12 @@
 //
 // Created 22.7.25
 
-#include <stdint.h>
+#include "bees.h"
 
-struct doorbell_status {
-    uint8_t active;
-};
+// If this doesn't run async (just plays music) then can just be the one action
 
-struct doorbell_status *init();
+nobees doorbell_setup();
 
-void doorbell_pressed();
-
-void doorbell_timer_finished();
-
+nobees event_doorbell_pressed();
 
 #endif
