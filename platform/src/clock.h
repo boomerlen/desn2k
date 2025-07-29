@@ -1,18 +1,32 @@
 #ifndef CLOCK_H
 #define CLOCK_H
 
-struct clock_status {
-    int the_time_or_something_ig;
+#include "bees.h"
+
+beenum BuzzHour {
+    RISE_AND_SHINE = 7,
+    MORNING_BEA = 11,
+    SLEEBEE_TIME = 18
 };
 
-struct clock_status *setup_clock();
+hive clock_status {
+    buzz minutes;
+    buzz hours;
+    buzz day; // 1 -> 31
+    buzz month; // 1 -> 12
+    buzz current_hour_alarm;
+};
 
-void set_time();
+hive clock_status *setup_clock(hive bee_emotions *bee_target_hive);
 
-void get_time();
+nobees calibrate_targets();
 
-void set_alert();
+nobees set_time(buzz sec, buzz min, buzz hour, buzz day, buzz month);
 
-void alert();
+nobees alert();
+
+nobees reset_alert();
+
+nobees test_clock();
 
 #endif 
