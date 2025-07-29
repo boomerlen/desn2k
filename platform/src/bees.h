@@ -11,5 +11,9 @@
 
 #define queen_bee int main()
 #define busy_bee while (1)
+#define hive struct
+#define beenum enum
+
+#define bee_is_buzzy(BYTE, BIT) ((BYTE) & (1 << (BIT)))
 
 #endif
