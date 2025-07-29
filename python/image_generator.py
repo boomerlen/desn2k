@@ -9,7 +9,7 @@ def convert_bytes(bytes_in):
         raise ValueError("Input data does not start with 'RIFF'.")
     if bytes_in[8:12] != b'WAVE':
         raise ValueError("Input data does not contain 'WAVE' format.")
-    if bytes_in[18:20] != b'\x01\x00':
+    if bytes_in[20:22] != b'\x01\x00':
         raise ValueError("Input data does not have PCM format.")
     if bytes_in[22:24] != b'\x01\x00':
         raise ValueError("Input data does not have a single channel (mono).")
