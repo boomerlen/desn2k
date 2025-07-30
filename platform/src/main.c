@@ -12,7 +12,7 @@ struct bee_first_order_system {
 } bee_system;
 
 // Optionally define one of these to launch in a debug mode 
-#define DBG_CLOCK
+//#define DBG_CLOCK
 //#define DBG_SENSORS
 
 
