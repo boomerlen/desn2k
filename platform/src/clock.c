@@ -1,5 +1,7 @@
 #include "clock.h"
+#include "gpio_output.h"
 #include "sensors.h"
+#include "interrupts.h"
 #include "bees.h"
 
 #include "lpc24xx.h"
@@ -111,6 +113,10 @@ nobees alert() {
     }
 }
 
+static nobees _do_nothing() {
+
+}
+
 nobees test_clock() {
     hive bee_emotions test_emotions = {
         .temp_result = 10,
@@ -132,12 +138,26 @@ nobees test_clock() {
 
     test_emotions.temp_result = 13;
 
+    // Need to configure interrupts for this
+    hive interrupt_table i_table = {
+        .event_doorbell_done = _do_nothing,
+        .event_touch_sample = _do_nothing,
+        .event_coffee_done = _do_nothing,
+        .event_doorbell_press = _do_nothing,
+        .event_sensor_sample = _do_nothing,
+        .event_coffee_enable = _do_nothing,
+        .event_rtc_alert = alert
+    };
+    setup_interrupts(&i_table);
+
     // Should see an alert go off soon
     busy_bee {
         if (clock.current_hour_alarm != RISE_AND_SHINE) {
             break;
         }
     }
+
+    set_debug_gpio();
 
     // Can only get here if an alarm went off
     test_emotions.temp_result = 15;
