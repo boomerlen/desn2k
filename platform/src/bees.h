@@ -14,9 +14,16 @@
 #define busy_bee while (1)
 #define hive struct
 #define beenum enum
+#define newbeevariety typedef
+#define not_busy_bee static
 
 #define bee_is_buzzy(BYTE, BIT) ((BYTE) & (1 << (BIT)))
 
 #define worker_bee(X) void (*X)(void)
+
+typedef union bee_cast {
+    uint8_t bytes[4];
+    uint32_t word;
+} bee_cast;
 
 #endif

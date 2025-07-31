@@ -60,6 +60,7 @@ nobees setup_interrupts(hive interrupt_table *i_table) {
     T2TCR |= 1;
 
     // Enable GPIO itnerrupt on pin 0.11 (debounced on daughter board)
+    // Confirm this is routed to the right spot
     IO0_INT_EN_R |= (1 << 11);
     
     // Finally enable all interrupts 

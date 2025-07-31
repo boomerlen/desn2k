@@ -19,7 +19,7 @@
             "request": "launch",
             "program": "python/image_generator.py",
             "console": "integratedTerminal",
-            "args": "--infile assets/HL1_song11.wav --outfile python/HL1_song11.iso"
+            "args": "--infile assets/HL1_song11.wav assets/TestImageGimp.bmp --outfile python/test.iso"
         }
     ]
 }
