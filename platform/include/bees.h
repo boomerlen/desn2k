@@ -26,4 +26,8 @@ typedef union bee_cast {
     uint32_t word;
 } bee_cast;
 
+#define bee_gone return 
+
+nobees bee_manager_execute();
+
 #endif
