@@ -47,15 +47,10 @@ def convert_bmp(path_in):
         g = rgb[1]
         b = rgb[2]
 
-        # Convert r and b to a number between 0 and 31
-        # g has 6 bits so can go up to 63
-        r = int((r / 256) * 32)
-        g = int((g / 256) * 64)
-        b = int((b / 256) * 32)
-        
+        # Standard RGB565 conversion: directly shift to get the right number of bits
         r5 = (r >> 3) & 0x1F  # 8-bit -> 5-bit (keep upper 5 bits)
         g6 = (g >> 2) & 0x3F  # 8-bit -> 6-bit (keep upper 6 bits)  
-        b5 = (b >> 3) & 0x1F
+        b5 = (b >> 3) & 0x1F  # 8-bit -> 5-bit (keep upper 5 bits)
 
         # Make two bytes out of this
         rgb565 = (r5 << 11) | (g6 << 5) | b5

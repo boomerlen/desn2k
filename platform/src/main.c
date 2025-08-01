@@ -17,7 +17,6 @@ struct bee_first_order_system {
 //#define DBG_CLOCK
 //#define DBG_SENSORS
 
-
 #ifdef DBG_CLOCK
 queen_bee {
     test_clock(); 
