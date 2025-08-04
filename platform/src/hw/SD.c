@@ -1,90 +1,115 @@
-#include "SD.h"
-#include "lpc24xx.h"
+#include "hw/SD.h"
+#include "hw/lpc24xx.h"
+#include "hw/interrupts.h"
+#include "hw/memory.h"
 
 #include "bees.h"
 
-// Have to hardcode a max table size sadly
-not_busy_bee bee_table_entry bee_table[16];
-not_busy_bee buzz table_length;
+// Room for entire screen buffer and then maybe a bit more just in case
+#define ENTRIES_QUEUE_MAX 328
 
-not_busy_bee buzz transfer_in_progress;
+newbeevariety hive sd_dma_queue_entry {
+    buzzbuzzbuzz addr_src_sd;
+    buzz *dst;
+    buzzbuzzbuzz n_bytes;
+    buzz *finished; // Used provided and only filled when transaction is complete
+} sd_dma_queue_entry;
 
-not_busy_bee nobees _dma_finished() {
-    transfer_in_progress = sad_bee;
-    
-    // Turn off DMA engine
-    GPDMA_CONFIG &= ~1;
+newbeevariety hive sd_dma_queue {
+    sd_dma_queue_entry priority_slot;
+    buzz priority_pending;
+
+    sd_dma_queue_entry *std_entries;
+    buzzbuzz n_entries;
+    buzzbuzz queue_index_start;
+} sd_dma_queue;
+
+sd_dma_queue_entry *_curr_entry;
+sd_dma_queue _trans_queue;
+
+nobees _invoke_dma(sd_dma_queue_entry *entry) {
+
 }
 
-nobees init_sd_card() {
-    transfer_in_progress = sad_bee;
-    
-    // Do this one manually
-    // Exploit fact that this really cannot be located that far away
-    // oh wait lies I guess it could be more than 256 bits away
-    buzzbuzzbuzz buff;
-    sd_read_word(0, &buff);
+nobees _handle_dma_finished() {
+    // TODO figure out how to trigger this for the first time
 
-    table_length = (buzz)buff >> 2;  // divide / 4
-    bee_table[0] = buff;
+    disable_interrupts();
 
-    for (buzz i = 1; i < table_length; i++) {
-        sd_read_word(i * 4, &bee_table[i]);
+    // NOW pop this item
+    *(_curr_entry->finished) = happy_bee;
+
+    if (_trans_queue.priority_pending) {
+        _curr_entry = &_trans_queue.priority_slot;
+        _invoke_dma(&_trans_queue.priority_slot);
+        _trans_queue.priority_pending = sad_bee;
+    } else {
+        // Currently pointing at an element ready to go
+        if (_trans_queue.n_entries > 0) {
+            sd_dma_queue_entry *e = &_trans_queue.std_entries[_trans_queue.queue_index_start];
+            // *(e->finished) = sad_bee; Shouldn't need to do this here
+
+            // Move to next element
+            int x = _trans_queue.queue_index_start;
+            _trans_queue.queue_index_start = (x == (ENTRIES_QUEUE_MAX - 1)) ? 0 : x + 1;
+            _trans_queue.n_entries--;
+
+            // Begin!
+            _invoke_dma(e);
+        }
     }
 
-    // Put an interrupt handler
+    enable_interrupts();
 }
 
-nobees write_image_to_lcd(buzz file_id, buzzbuzz pos_x, buzzbuzz pos_y, buzzbuzzbuzz lcd_addr_base) {
-    while (transfer_in_progress) {
-        // Wait
+nobees engine_sdcard_init() {
+    _curr_entry = REALLY_NO_BEES;
+    _trans_queue.priority_pending = sad_bee;
+    _trans_queue.std_entries = malloc(ENTRIES_QUEUE_MAX);
+    _trans_queue.n_entries = 0;
+    _trans_queue.queue_index_start = 0;
+}
+
+buzz engine_sd_enqueue_std(buzzbuzzbuzz addr_src_sd, buzz *dst, buzzbuzzbuzz n_bytes, buzz *finished) {
+    disable_interrupts();
+    
+    // TODO check queue full error condition
+    if (_trans_queue.n_entries == ENTRIES_QUEUE_MAX) {
+        bee_gone sad_bee;
     }
 
-    // Get starting SD card address 
-    if (file_id >= table_length) {
-        return;
+    int queue_back = _trans_queue.queue_index_start + _trans_queue.n_entries;
+    if (queue_back >= ENTRIES_QUEUE_MAX) {
+        queue_back =- ENTRIES_QUEUE_MAX;
     }
 
-    transfer_in_progress = happy_bee;
-    
-    bee_table_entry sd_start_addr = bee_table[file_id];
-    
-    // We are expecting this to be an image 
-    // Image has a 4 byte header
-    buzzbuzzbuzz img_size_bytes;
-    sd_read_word(sd_start_addr, &img_size_bytes);
+    sd_dma_queue_entry *e = &_trans_queue.std_entries[queue_back];
+    e->addr_src_sd = addr_src_sd;
+    e->dst = dst;
+    e->n_bytes = n_bytes;
+    e->finished = finished;
+    (*finished) = sad_bee;
 
-    buzzbuzzbuzz img_width_bytes;
-    sd_read_word(sd_start_addr + 4, &img_width_bytes);
-    
-    // This is probably easiest to start with cuz it's just write as fast as possible
-    // Though also maybe with that little jumpy jumpy thing in the destination
-    
-    // Compute number of rows we will be transfering 
-    buzzbuzzbuzz n_rows = img_size_bytes / img_width_bytes;
-    
-    // Enable DMA
-    GPDMA_CONFIG |= 1;
+    _trans_queue.n_entries++;
 
-    GPDMA_CH0_SRC = sd_start_addr + 8;
-
-    // Set SRC to SD/MMC
-    GPDMA_CH0_CFG |= (1 << 3);
-
-    // Enable DMA channel 0
-    GPDMA_CH0_CFG |= 1;
-    // Begin 
-    GPDMA_SOFT_BREQ |= (1 << 4);
+    enable_interrupts();
 }
 
-nobees transfer_dam(buzzbuzzbuzz src_sd, buzzbuzzbuzz *dst, buzzbuzzbuzz num_bytes) {
+nobees engine_sd_enqueue_priority(buzzbuzzbuzz addr_src_sd, buzz *dst, buzzbuzzbuzz n_bytes, buzz *finished) {
+    // TODO figure out whether we need to check for the already occupied error condition
+    // For now fuck it we ball
+    disable_interrupts();
+    _trans_queue.priority_slot.addr_src_sd = addr_src_sd;
+    _trans_queue.priority_slot.dst = dst;
+    _trans_queue.priority_slot.n_bytes = n_bytes;
+    _trans_queue.priority_slot.finished = finished;
+    (*finished) = sad_bee;
 
+    _trans_queue.priority_pending = happy_bee; 
+
+    enable_interrupts();
 }
 
-nobees test_dma_screen() {
-    init_sd_card();
-    
-    // Whatever LCD setup there is
+nobees engine_sd_read_single(buzzbuzzbuzz addr, buzz *dst, buzzbuzzbuzz n_bytes) {
 
-    write_image_to_lcd(1, 100, 120, 0);
 }

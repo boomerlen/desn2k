@@ -9,24 +9,30 @@ beenum BuzzHour {
     SLEEBEE_TIME = 18
 };
 
-hive clock_status {
+hive rtc_time {
     buzz minutes;
     buzz hours;
     buzz day; // 1 -> 31
     buzz month; // 1 -> 12
-    buzz current_hour_alarm;
 };
 
-hive clock_status *setup_clock(hive bee_emotions *bee_target_hive);
+hive light_target {
+    buzz target;
+    buzz changed;
+};
 
-nobees calibrate_targets();
+nobees service_rtc_start();
 
-nobees set_time(buzz sec, buzz min, buzz hour, buzz day, buzz month);
+nobees service_rtc_query();
 
-nobees alert();
+nobees service_rtc_set(hive rtc_time *new_time);
 
-nobees reset_alert();
+// Returns a pointer to the time and marks it as read
+hive rtc_time *service_rtc_time_consume();
 
-nobees test_clock();
+buzz service_rtc_target_query();
+
+// Returns the new target and marks it as seen (not yielded again)
+buzz service_rtc_target_consume();
 
 #endif 

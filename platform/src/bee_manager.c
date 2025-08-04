@@ -1,14 +1,13 @@
 #include "bees.h"
 #include "state.h"
+#include "hw/RTC.h"
+#include "hw/scheduler_timer.h"
+#include "hw/memory.h"
+#include "hw/SD.h"
 
 buzz query_timer();
 
 buzz query_touch();
-
-hive state {
-    worker_bee(touch_handler);
-};
-
 
 // This is our program!!!!
 nobees bee_manager_execute() {
@@ -18,12 +17,14 @@ nobees bee_manager_execute() {
     // Start interrupt engine (needed before everything else, no dependencies)
     engine_interrupts_init();
 
+    engine_memory_init()
+
     // Start "services"
     service_light_start();
 
     service_rtc_start();
 
-    service_timer_start();
+    service_scheduler_timer_start();
 
     service_touch_start();
 
@@ -38,25 +39,32 @@ nobees bee_manager_execute() {
 
     state_transition_menu();
 
+    enable_interrupts();
+
     busy_bee {
 
         // Event loop
 
         // Check if timer is ready for next operation (do not refresh too frequently)
 
-        if (!query_timer()) {
+        if (!service_scheduler_timer_query()) {
             continue;
         }
 
         // See if any sensors need updating
-        if (query_light()) {
+        if (service_light_query()) {
             // Make relevant change
             state_update_light_val();
         }
 
-        if (query_rtc()) {
+        if (serivce_rtc_query()) {
             // Make relevant change
-            state_update_time();
+            state_update_time(service_rtc_time_consume());
+        }
+
+        if (service_rtc_target_query()) {
+            // Gotta do something with the state ngl
+            state_update_light_target(service_rtc_target_consume());
         }
 
         if (service_touch_query()) {

@@ -30,9 +30,11 @@ nobees state_transition_menu();
 
 nobees state_transition_manual_blinds();
 
-nobees state_update_time();
+nobees state_update_time(hive rtc_time *new_time);
 
 nobees state_update_light_val();
+
+nobees state_update_light_target(buzz new_target);
 
 nobees state_transition_settime();
 

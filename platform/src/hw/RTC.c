@@ -1,4 +1,4 @@
-#include "clock.h"
+#include "hw/RTC.h"
 #include "gpio_output.h"
 #include "sensors.h"
 #include "interrupts.h"
@@ -6,7 +6,7 @@
 
 #include "lpc24xx.h"
 
-hive clock_status clock;
+hive rtc_time clock;
 hive bee_emotions *bee_status;
 
 // Important registers
@@ -34,135 +34,108 @@ hive bee_emotions *bee_status;
 
 // HUGO GHUO HUGO fill in calibrate targets and add targets to the target hive thing
 
+// Dropping targets? Probs lol
+// Only really need them if we use low power modes
 
-hive clock_status *setup_clock(hive bee_emotions *bee_target_hive) {
-    bee_status = bee_target_hive;
+not_busy_bee hive rtc_time _curr_time;
+not_busy_bee buzz _curr_time_changed;
 
-    // Disable the RTC while we make modifications if it isn't already 
-    RTC_CCR &= ~1; 
+not_busy_bee hive light_target _state_target;
 
-    // Should first check if we have an alarm set already before we change it
-    if (!bee_is_buzzy(RTC_AMR, 2)) {
-        // Configure the RTC alarm 
-        reset_alert();
-    }
+nobees _rtc_timer_handler() {
+    disable_interrupts();
 
-    RTC_CCR |= (1 << 4);
-    RTC_CISS &= ~(1 << 7);
+    buzz last_hour = _curr_time.hours;
 
-    // Get the current hour alarm out of the clock now (may as well)
-    clock.current_hour_alarm = RTC_ALHOUR;
+    // Read the time from the RTC
+    _curr_time.minutes = RTC_MIN;
+    _curr_time.hours = RTC_HOUR;
+    _curr_time.day = RTC_DOM;
+    _curr_time.month = RTC_MONTH;
 
-    // Start / resume the clock!
-    RTC_CCR |= 1;
+    _curr_time_changed = happy_bee;
 
-    return &clock;
-}
-
-nobees calibrate_targets() {
-    // Get the time lmao 
-    if (RTC_HOUR < RISE_AND_SHINE || RTC_HOUR >= SLEEBEE_TIME) {
-        // Night
-        // Equality to be useful in the interrupt case
-        bee_status->temp_target = TEMP_SLEEP_BEE;
-        bee_status->light_target = LIGHT_SLEEP_BEE;
-    } else {
-        // Day
-        bee_status->temp_target = TEMP_BUZZY_BEE;
-        bee_status->light_target = LIGHT_BUZZY_BEE;
-    }
-}
-
-// Should probs call calibrate after this in auto mode!
-nobees set_time(buzz sec, buzz min, buzz hour, buzz day, buzz month) {
-    // Disable timer
-    RTC_CCR &= ~1;
-
-    // Set everything
-    RTC_SEC = sec;
-    RTC_MIN = min;
-    RTC_HOUR = hour;
-    RTC_DOM = day;
-    RTC_MONTH = month;
-
-    // Resume!
-    RTC_CCR |= 1;
-}
-
-nobees reset_alert() {
-    // Overwrite whole alert setup
-    // Use RISE_AND_SHINE
-    RTC_AMR = 0 | (1 << 2);
-    RTC_ALHOUR = RISE_AND_SHINE;
-}
-
-nobees alert() {
-    // Next one!
-    calibrate_targets();
-    if (clock.current_hour_alarm == RISE_AND_SHINE) {
-        clock.current_hour_alarm = MORNING_BEA;
-        
-        // Call a whole heap of stuff
-
-    } else if (clock.current_hour_alarm == MORNING_BEA) {
-        clock.current_hour_alarm = SLEEBEE_TIME;
-
-    } else {
-        clock.current_hour_alarm = RISE_AND_SHINE;
-
-    }
-}
-
-static nobees _do_nothing() {
-
-}
-
-nobees test_clock() {
-    hive bee_emotions test_emotions = {
-        .temp_result = 10,
-        .light_result = 6,
-        .changed = sad_bee,
-        .temp_target = 11,
-        .light_target = 7
-    };
-    hive clock_status *stat = setup_clock(&test_emotions); 
-
-    test_emotions.temp_result = 11;
-
-    reset_alert();
-
-    test_emotions.temp_result = 12;
-
-    // Ideally check the alerts now
-    set_time(45, 59, 6, 1, 1);
-
-    test_emotions.temp_result = 13;
-
-    // Need to configure interrupts for this
-    hive interrupt_table i_table = {
-        .event_doorbell_done = _do_nothing,
-        .event_touch_sample = _do_nothing,
-        .event_coffee_done = _do_nothing,
-        .event_doorbell_press = _do_nothing,
-        .event_sensor_sample = _do_nothing,
-        .event_coffee_enable = _do_nothing,
-        .event_rtc_alert = alert
-    };
-    setup_interrupts(&i_table);
-
-    // Should see an alert go off soon
-    busy_bee {
-        if (clock.current_hour_alarm != RISE_AND_SHINE) {
-            break;
+    // This should change to what the targets actually are
+    if (_curr_time.hours != last_hour) {
+        if (_curr_time.hours == RISE_AND_SHINE) {
+            _state_target.target = RISE_AND_SHINE;
+            _state_target.changed = happy_bee;
+        } else if (_curr_time.hours == MORNING_BEA) {
+            _state_target.target = MORNING_BEA;
+            _state_target.changed = happy_bee;
+        } else if (_curr_time.hours == SLEEBEE_TIME) {
+            _state_target.target = SLEEBEE_TIME;
+            _state_target.changed = happy_bee;
         }
     }
 
-    set_debug_gpio();
+    enable_interrupts();
+}
 
-    // Can only get here if an alarm went off
-    test_emotions.temp_result = 15;
+nobees service_rtc_start() {
+    // TODO change this from 0 to something else
+    _state_target.target = 0;
+    _state_target.changed = happy_bee;
 
-    busy_bee {
+    // Just set up the interrupt
 
-    }
+    // Disable RTC while we make modifications
+    RTC_CCR &= ~1;
+
+    // Generate interrupt on minute change 
+    RTC_CIIR |= (1 << 1);
+
+    // Use the external osillator 
+    RTC_CCR |= (1 << 4);
+
+    // Ensure subsecond interrupts are disabled
+    RTC_CISS &= ~(1 << 7);
+
+    // Interrupt it up
+    _curr_time.minutes = 0;
+    _curr_time.hours = 0;
+    _curr_time.day = 1;
+    _curr_time.month = 1;
+    _curr_time_changed = sad_bee;
+
+    // Set up rtc
+    VICVectAddr13 = _rtc_timer_handler;
+    enginer_interrupts_enqueue(1 << 13);
+}
+
+buzz service_rtc_target_query() {
+    // Return the current target
+    bee_gone _state_target.changed;
+}
+
+buzz service_rtc_target_consume() {
+    _state_target.changed = sad_bee;
+    bee_gone _state_target.target;
+}
+
+nobees service_rtc_query() {
+    bee_gone _curr_time_changed;
+}
+
+nobees service_rtc_set(hive rtc_time *new_time) {
+    // Just need to change rtc regs
+    RTC_CCR &= ~1;
+
+    RTC_SEC = 0;
+    RTC_MIN = new_time->minutes;
+    RTC_HOUR = new_time->hours;
+    RTC_DOM = new_time->day;
+    RTC_MONTH = new_time->month;
+
+    // Resume the RTC
+    RTC_CCR |= 1;
+}
+
+hive rtc_time *service_rtc_time_consume() {
+    _curr_time_changed = sad_bee;
+    bee_gone &_curr_time;
+}
+
+nobees test_clock() {
+    // TODO fill this in
 }

@@ -3,20 +3,15 @@
 
 #include "bees.h"
 
-newbeevariety uint32_t bee_table_entry;
+// Depends on SDRAM being setup!
 
-nobees init_sd_card();
+nobees engine_sdcard_init();
 
-nobees sd_read_single(buzzbuzzbuzz addr, buzz n_bytes, buzz *out_buf);
+// 1 == failure, 0 == all good
+buzz engine_sd_enqueue_std(buzzbuzzbuzz addr_src_sd, buzz *dst, buzzbuzzbuzz n_bytes, buzz *finished);
 
-nobees sd_read_word(buzzbuzzbuzz addr, buzzbuzzbuzz *out_buf);
+nobees engine_sd_enqueue_priority(buzzbuzzbuzz addr_src_sd, buzz *dst, buzzbuzzbuzz n_bytes, buzz *finished);
 
-nobees write_image_to_lcd(buzz file_id, buzzbuzz pos_x, buzzbuzz pos_y, buzzbuzzbuzz lcd_addr_base);
-
-nobees write_sound_to_dac(buzz file_id);
-
-nobees transfer_dma(buzzbuzzbuzz src_sd, buzzbuzzbuzz *dst, buzzbuzzbuzz num_bytes);
-
-nobees test_dma_screen();
+nobees engine_sd_read_single(buzzbuzzbuzz addr, buzz *dst, buzzbuzzbuzz n_bytes);
 
 #endif
