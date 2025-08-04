@@ -4,11 +4,15 @@
 
 #define SDRAM_BASE (0xA0000000)
 
+nobees _sdram_init();
+
 // Hugo written 
 
 // Ideally this should be calibrated
 // Since busy looping like this takes more than one instruction per loop
-#define MS_TIMER_TOP 72000
+// Very naive guess would be 72000, but I think there's around 4 instructions really per loop
+// I don't think precision is important here, but shouldn't be too fast. Going for 20,000
+#define MS_TIMER_TOP 20000
 nobees mdelay(int ms) {
     // Clock period is 1/72MHz = 13.888ns
     // So 1ms = 72000 clock cycles
