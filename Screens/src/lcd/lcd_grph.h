@@ -28,15 +28,14 @@ typedef unsigned short lcd_color_t;
 #define   OLIVE			0x7BE0      /* 128, 128,   0 */
 #define   LIGHT_GRAY	0xC618      /* 192, 192, 192 */
 #define   DARK_GRAY		0x7BEF      /* 128, 128, 128 */
-#define   BLUE			0x001F 
-#define   BLUE_BG	    0xBFFF 
+#define   BLUE			  0x001F 
+#define   BLUE_BG			0xBFFF 
 #define   GREEN			0x07E0      /*   0, 255,   0 */
 #define   CYAN          0x07FF      /*   0, 255, 255 */
 #define   RED           0xF800      /* 255,   0,   0 */
 #define   MAGENTA		0xF81F      /* 255,   0, 255 */
 #define   YELLOW		0xFFE0      /* 255, 255, 0   */
 #define   WHITE			0xFFFF      /* 255, 255, 255 */
-#define   BROWN         0x94C0
 
 #define		RGBENC(r,g,b)	((r&0x1F)<<11) | ((g&0x3F)<<5) | (b&0x1F)
 #define 	DECODE_R(e) (e>>11)&0x1F
