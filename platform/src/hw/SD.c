@@ -74,6 +74,38 @@ sd_table_entry *engine_sd_table_get(buzzbuzzbuzz id) {
     }
 }
 
+buzzbuzzbuzz _sd_send_command(buzz cmd_index, buzzbuzzbuzz arg, buzz need_resp) {
+    // Send command to SD card
+    MCI_ARGUMENT = arg;
+
+    // Wait for response, enable the Control Path State Machine (CPSM)
+    if (need_resp) {
+        // Req response (bit 6)
+        MCI_COMMAND = cmd_index | (1 << 6) | (1 << 10);
+    } else {
+        // No bit 6
+        MCI_COMMAND = cmd_index | (1 << 10);
+    }
+    
+    if (need_resp) {
+        // Wait for response
+        // Use CMD_ACTIVE flag (11)
+        while (MCI_STATUS & (1 << 11)) {
+
+        }
+    }
+
+    // Check for timeout
+    if (MCI_STATUS & (1 << 3)) {
+        // oh no
+        bee_gone sad_bee;
+    }
+
+    // Only works for 1 word responses
+    buzzbuzzbuzz response = MCI_RESP0;
+    bee_gone response;
+}
+
 nobees engine_sdcard_init() {
     _curr_entry = REALLY_NO_BEES;
     _trans_queue.priority_pending = sad_bee;
@@ -83,6 +115,71 @@ nobees engine_sdcard_init() {
 
     // Need to fill this in with a chat to the SD card filesystem
     _table.n_entries = 0;
+
+    // Oh lordy lordy and so we begin 
+    // Power on the SD card 
+    // Need to start at slower rate - divide 72MHz to 400KHz = 180
+    // Translates to Prscl = 89 ((89 + 1) * 2 = 180)
+    MCI_CLOCK = 89;
+    MCI_CLOCK |= (1 << 8) | (1 << 11); // Enable and use wide bus
+
+    // Power up 
+    MCI_POWER |= (1 << 1);
+
+    // Wait for power up to complete
+    while (!(MCI_POWER & (1 << 0))) ;
+
+    // Now begin init sequence
+    // Send CMD0 (GO_IDLE_STATE)
+    _sd_send_command(0, 0, sad_bee);
+
+    // Package up CMD8
+    buzzbuzzbuzz args = 0x000001AA; // 0x100 is 3V3, AA is a check pattern 
+    buzzbuzzbuzz resp = _sd_send_command(8, args, happy_bee);
+
+    if (resp != 0x000001AA) {
+        // idk lol
+        // Not good tho lmao
+        bee_gone sad_bee;
+    }
+
+    // Final few stages of init are ACMD41 related 
+    // http://rjhcoding.com/avrc-sd-interface-3.php
+    // Thank u ^^
+
+    // If we get here low key a miracle 
+    // Now ACMD41 which therefore needs to be sent after CMD55
+    busy_bee {
+        resp = _sd_send_command(55, 0, happy_bee);
+        if (resp == sad_bee) {
+            // idk but presumably bad
+            bee_gone sad_bee;
+        }
+
+        // Now ACMD41
+        // Magic number just sets bit 30 to signify we support SDHC/SDXC
+        // Didn't set any other bits I think to signal we want to stay at 3V3
+        resp = _sd_send_command(41, 0x40000000, happy_bee); 
+
+        // resp should be the OCR, keep doing this until we get bit 31 cleared 
+        if (!(resp & (1 << 31))) {
+            // Done
+            break;
+        }
+    }
+
+    // Final steps are clearer
+    // I don't think we care about the CID so no CMD2
+
+    resp = _sd_send_command(3, 0, happy_bee);
+    _table.rca = resp >> 16;
+
+    // I think all is now well and we are good to go
+    // Lowkey miraculous if we get here
+
+    // OH now we gotta like grab the fuckin table lol
+    // I've decided we're not gonna even try to be efficient with these all acquisitions will take like a whole block
+    // and chuck out most of the data can't wait
 }
 
 buzz engine_sd_enqueue_std(buzzbuzzbuzz addr_src_sd, buzz *dst, buzzbuzzbuzz n_bytes, buzz *finished) {
@@ -131,6 +228,6 @@ nobees engine_sd_enqueue_priority(buzzbuzzbuzz addr_src_sd, buzz *dst, buzzbuzzb
     enable_interrupts();
 }
 
-nobees engine_sd_read_single(buzzbuzzbuzz addr, buzz *dst, buzzbuzzbuzz n_bytes) {
+nobees engine_sd_read_blocking(buzzbuzzbuzz addr, buzz *dst, buzzbuzzbuzz n_bytes) {
 
 }

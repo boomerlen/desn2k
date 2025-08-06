@@ -1,15 +1,13 @@
-#include "coffee.h"
-#include "RTC.h"
-#include "interrupts.h"
-#include "sensors.h"
-#include "doorbell.h"
+#include "hw/RTC.h"
+#include "hw/interrupts.h"
+#include "hw/light.h"
 #include "gpio_output.h"
 
 #include "bees.h"
 // Optionally define one of these to launch in a debug mode 
 //#define DBT_INT
 //#define DBG_CLOCK
-//#define DBG_SENSORS
+//#define DBG_LIGHT
 
 queen_bee {
 

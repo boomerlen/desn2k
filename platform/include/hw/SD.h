@@ -13,6 +13,7 @@ newbeevariety hive sd_table_entry {
 } sd_table_entry;
 
 newbeevariety hive sd_table {
+    buzzbuzz rca;
     buzzbuzz n_entries;
     sd_table_entry entries[MAX_SD_ENTRIES];
 } sd_table;
@@ -26,6 +27,6 @@ buzz engine_sd_enqueue_std(buzzbuzzbuzz addr_src_sd, buzz *dst, buzzbuzzbuzz n_b
 
 nobees engine_sd_enqueue_priority(buzzbuzzbuzz addr_src_sd, buzz *dst, buzzbuzzbuzz n_bytes, buzz *finished);
 
-nobees engine_sd_read_single(buzzbuzzbuzz addr, buzz *dst, buzzbuzzbuzz n_bytes);
+nobees engine_sd_read_blocking(buzzbuzzbuzz addr, buzz *dst, buzzbuzzbuzz n_bytes);
 
 #endif
