@@ -17,7 +17,7 @@ nobees bee_manager_execute() {
     // Start interrupt engine (needed before everything else, no dependencies)
     engine_interrupts_init();
 
-    engine_memory_init()
+    engine_memory_init();
 
     // Start "services"
     service_light_start();

@@ -1,30 +1,9 @@
-#include "bubbles.h"
-#include "lpc24xx.h"   
-#include "lcd/lcd_hw.h"
-#include "lcd/lcd_grph.h"
-#include "lcd/lcd_cfg.h"
-#include "lcd/sdram.h"
-#include "delay.h"
-#include <stdlib.h>
+#include "bees.h"
+#include "hw/lcd/lcd_hw.h"
+#include "hw/lcd/lcd_grph.h"
+#include "hw/lcd/lcd_cfg.h"
 
-
-void draw_bee(int x, int y, int scale) {
-    // Bee body segments
-    lcd_fillcircle(x, y, scale, YELLOW);                    // segment 1
-    lcd_fillcircle(x + scale, y, scale, BLACK);             // segment 2
-    lcd_fillcircle(x + 2 * scale, y, scale, YELLOW);        // segment 3
-    lcd_fillcircle(x + 3 * scale, y, scale - 2, BLACK);     // head
-
-    // Eyes
-    lcd_fillcircle(x + 3 * scale - 2, y - 3, scale / 4, LIGHT_GRAY);
-    lcd_fillcircle(x + 3 * scale + 2, y - 3, scale / 4, LIGHT_GRAY);
-
-    // Wings
-    lcd_fillcircle(x + scale, y - scale - 1, scale / 2, LIGHT_GRAY);
-    lcd_fillcircle(x + 2 * scale, y - scale - 1, scale / 2, LIGHT_GRAY);
-}
-
-void draw_default_screen(void) {
+nobees draw_default_screen() {
 	  int cx = 80, cy = 280;
 	  lcd_fillScreen(YELLOW);
     lcd_fontColor(BLACK, YELLOW);
@@ -46,11 +25,13 @@ void draw_default_screen(void) {
     lcd_line(60, 60, 60, 50, DARK_GRAY);
     lcd_line(65, 60, 65, 50, DARK_GRAY);
 
-    // bee cam button
+    // Living Room Light button
     lcd_fillRect(130, 40, 210, 110, WHITE);
     lcd_drawRect(130, 40, 210, 110, BLACK);
-    lcd_putString(135, 45, (unsigned char *)"Bee Cam");
-		draw_bee(160, 80, 8);
+    lcd_putString(135, 45, (unsigned char *)"Living Room");
+    lcd_putString(145, 60, (unsigned char *)"light");
+    lcd_fillcircle(170, 80, 12, YELLOW);
+    lcd_fillRect(165, 90, 175, 100, YELLOW);
 
     // Bed Room Blind button
     lcd_fillRect(20, 130, 100, 200, WHITE);
@@ -67,6 +48,8 @@ void draw_default_screen(void) {
     lcd_putString(145, 150, (unsigned char *)"Blind");
     lcd_drawRect(145, 165, 195, 190, DARK_GRAY);
     lcd_line(170, 165, 170, 190, DARK_GRAY);
+
+    // Centered analog + digital clock
 
     // Multiple alternating rings
     lcd_fillcircle(cx, cy, 32, BLACK);
@@ -91,7 +74,7 @@ void draw_default_screen(void) {
 }
 
 
-void more_settings_screen(const char *room_name) {
+nobees more_settings_screen(const char *room_name) {
     lcd_fillScreen(WHITE);
     lcd_fontColor(BLACK, WHITE);
 
@@ -135,15 +118,9 @@ void more_settings_screen(const char *room_name) {
 
     lcd_drawRect(160, 198, 180, 218, BLACK);  // Right arrow
     lcd_putString(165, 203, (unsigned char *)">");
-		
-		// HOME button at the bottom
-		lcd_drawRect(70, 240, 170, 290, BLACK);      // button outline
-		lcd_putString(110, 260, (unsigned char *)"HOME");
-		lcd_fontColor(WHITE,BLACK);
-
 }
 
-void draw_coffee_machine_screen(void) {
+nobees draw_coffee_machine_screen() {
     int cx = 120, cy = 220;  
 	  lcd_fillScreen(WHITE);
     lcd_fontColor(BLACK, WHITE);
@@ -199,16 +176,10 @@ void draw_coffee_machine_screen(void) {
     lcd_line(125, 190, 130, 170, BLACK);    // upper curl
     lcd_line(130, 170, 135, 160, BLACK);
     lcd_line(135, 160, 140, 150, BLACK);
-		
-		// HOME button at the bottom
-		lcd_drawRect(70, 240, 170, 290, BLACK);      // button outline
-		lcd_putString(110, 260, (unsigned char *)"HOME");
-		lcd_fontColor(WHITE,BLACK);
-
 }
 
 
-int door_bell(void) {
+nobees door_bell() {
 		// Center point for bell
 	int center_x = 120;
 	int center_y = 140;
@@ -243,88 +214,44 @@ int door_bell(void) {
 
 	// === Bees (reused style) ===
 
-		// Top Left
-		lcd_fillcircle(60, 70, 8, YELLOW);
-		lcd_fillcircle(68, 70, 8, BLACK);
-		lcd_fillcircle(76, 70, 8, YELLOW);
-		lcd_fillcircle(84, 70, 6, BLACK);
-		lcd_fillcircle(82, 67, 2, LIGHT_GRAY);
-		lcd_fillcircle(86, 67, 2, LIGHT_GRAY);
-		lcd_fillcircle(70, 60, 4, LIGHT_GRAY);
-		lcd_fillcircle(75, 60, 4, LIGHT_GRAY);
+	// Top Left
+	lcd_fillcircle(60, 70, 8, YELLOW);
+	lcd_fillcircle(68, 70, 8, BLACK);
+	lcd_fillcircle(76, 70, 8, YELLOW);
+	lcd_fillcircle(84, 70, 6, BLACK);
+	lcd_fillcircle(82, 67, 2, LIGHT_GRAY);
+	lcd_fillcircle(86, 67, 2, LIGHT_GRAY);
+	lcd_fillcircle(70, 60, 4, LIGHT_GRAY);
+	lcd_fillcircle(75, 60, 4, LIGHT_GRAY);
 
-		// Top Right
-		lcd_fillcircle(180, 70, 8, YELLOW);
-		lcd_fillcircle(172, 70, 8, BLACK);
-		lcd_fillcircle(164, 70, 8, YELLOW);
-		lcd_fillcircle(156, 70, 6, BLACK);
-		lcd_fillcircle(158, 67, 2, LIGHT_GRAY);
-		lcd_fillcircle(154, 67, 2, LIGHT_GRAY);
-		lcd_fillcircle(170, 60, 4, LIGHT_GRAY);
-		lcd_fillcircle(165, 60, 4, LIGHT_GRAY);
+	// Top Right
+	lcd_fillcircle(180, 70, 8, YELLOW);
+	lcd_fillcircle(172, 70, 8, BLACK);
+	lcd_fillcircle(164, 70, 8, YELLOW);
+	lcd_fillcircle(156, 70, 6, BLACK);
+	lcd_fillcircle(158, 67, 2, LIGHT_GRAY);
+	lcd_fillcircle(154, 67, 2, LIGHT_GRAY);
+	lcd_fillcircle(170, 60, 4, LIGHT_GRAY);
+	lcd_fillcircle(165, 60, 4, LIGHT_GRAY);
 
-		// Bottom Left
-		lcd_fillcircle(60, 200, 8, YELLOW);
-		lcd_fillcircle(68, 200, 8, BLACK);
-		lcd_fillcircle(76, 200, 8, YELLOW);
-		lcd_fillcircle(84, 200, 6, BLACK);
-		lcd_fillcircle(82, 197, 2, LIGHT_GRAY);
-		lcd_fillcircle(86, 197, 2, LIGHT_GRAY);
-		lcd_fillcircle(70, 190, 4, LIGHT_GRAY);
-		lcd_fillcircle(75, 190, 4, LIGHT_GRAY);
+	// Bottom Left
+	lcd_fillcircle(60, 200, 8, YELLOW);
+	lcd_fillcircle(68, 200, 8, BLACK);
+	lcd_fillcircle(76, 200, 8, YELLOW);
+	lcd_fillcircle(84, 200, 6, BLACK);
+	lcd_fillcircle(82, 197, 2, LIGHT_GRAY);
+	lcd_fillcircle(86, 197, 2, LIGHT_GRAY);
+	lcd_fillcircle(70, 190, 4, LIGHT_GRAY);
+	lcd_fillcircle(75, 190, 4, LIGHT_GRAY);
 
-		// Bottom Right
-		lcd_fillcircle(180, 200, 8, YELLOW);
-		lcd_fillcircle(172, 200, 8, BLACK);
-		lcd_fillcircle(164, 200, 8, YELLOW);
-		lcd_fillcircle(156, 200, 6, BLACK);
-		lcd_fillcircle(158, 197, 2, LIGHT_GRAY);
-		lcd_fillcircle(154, 197, 2, LIGHT_GRAY);
-		lcd_fillcircle(170, 190, 4, LIGHT_GRAY);
-		lcd_fillcircle(165, 190, 4, LIGHT_GRAY);
-		
-		// HOME button at the bottom
-		lcd_drawRect(70, 240, 170, 290, BLACK);      // button outline
-		lcd_putString(110, 260, (unsigned char *)"HOME");
-		lcd_fontColor(WHITE,BLACK);
+	// Bottom Right
+	lcd_fillcircle(180, 200, 8, YELLOW);
+	lcd_fillcircle(172, 200, 8, BLACK);
+	lcd_fillcircle(164, 200, 8, YELLOW);
+	lcd_fillcircle(156, 200, 6, BLACK);
+	lcd_fillcircle(158, 197, 2, LIGHT_GRAY);
+	lcd_fillcircle(154, 197, 2, LIGHT_GRAY);
+	lcd_fillcircle(170, 190, 4, LIGHT_GRAY);
+	lcd_fillcircle(165, 190, 4, LIGHT_GRAY);
 
-	}
-
-int bee_cam(void) {
-    lcd_fillScreen(BLACK);
-
-    // Bold bee watch label
-    lcd_fontColor(BLACK, YELLOW);
-    lcd_putString(80, 30, "BEE WATCH MODE!");
-    lcd_putString(81, 31, "BEE WATCH MODE!");
-
-    // Draw bees of different sizes and positions
-    draw_bee(40, 70, 6);     // Top Left - medium
-    draw_bee(150, 60, 8);    // Top Right - large
-    draw_bee(30, 190, 5);    // Bottom Left - small
-    draw_bee(160, 150, 7);   // Bottom Right - medium-large
-    draw_bee(90, 100, 4);    // Center Left - small
-    draw_bee(120, 250, 9);   // Center Bottom - extra large
-    draw_bee(20, 70, 6);     // Top Left - medium
-    draw_bee(150, 7, 8);    // Top Right - large
-    draw_bee(40, 190, 5);    // Bottom Left - small
-    draw_bee(160, 19, 7);   // Bottom Right - medium-large
-    draw_bee(90, 100, 4);    // Center Left - small
-    draw_bee(10, 200, 9);   // Center Bottom - extra large
-		draw_bee(150, 7, 8);    // Top Right - large
-    draw_bee(40, 190, 10);    // Bottom Left - small
-    draw_bee(12, 180, 10);   // Bottom Right - medium-large
-    draw_bee(50, 50, 10);    // Center Left - small
-    draw_bee(180, 200, 10);   // Center Bottom - extra large
-		draw_bee(0, 0, 10);    // Bottom Left - small
-    draw_bee(50, 50, 10);   // Bottom Right - medium-large
-    draw_bee(50, 100, 10);    // Center Left - small
-    draw_bee(240, 240, 10);   // Center Bottom - extra large
-    draw_bee(120, 180, 10);    // Center Left - small
-    draw_bee(120, 240, 10);   // Center Bottom - extra large
-		
-    // HOME button
-    lcd_fillRect(70, 240, 170, 290, WHITE);
-    lcd_fontColor(BLACK, WHITE);
-    lcd_putString(110, 260, (unsigned char *)"HOME");
 }

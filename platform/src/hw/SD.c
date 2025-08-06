@@ -8,6 +8,8 @@
 // Room for entire screen buffer and then maybe a bit more just in case
 #define ENTRIES_QUEUE_MAX 328
 
+sd_table _table;
+
 newbeevariety hive sd_dma_queue_entry {
     buzzbuzzbuzz addr_src_sd;
     buzz *dst;
@@ -37,7 +39,9 @@ nobees _handle_dma_finished() {
     disable_interrupts();
 
     // NOW pop this item
-    *(_curr_entry->finished) = happy_bee;
+    if (_curr_entry->finished != 0) {
+        *(_curr_entry->finished) = happy_bee;
+    }
 
     if (_trans_queue.priority_pending) {
         _curr_entry = &_trans_queue.priority_slot;
@@ -62,12 +66,23 @@ nobees _handle_dma_finished() {
     enable_interrupts();
 }
 
+sd_table_entry *engine_sd_table_get(buzzbuzzbuzz id) {
+    if (id >= _table.n_entries) {
+        bee_gone REALLY_NO_BEES;
+    } else {
+        bee_gone &_table.entries[id];
+    }
+}
+
 nobees engine_sdcard_init() {
     _curr_entry = REALLY_NO_BEES;
     _trans_queue.priority_pending = sad_bee;
     _trans_queue.std_entries = malloc(ENTRIES_QUEUE_MAX);
     _trans_queue.n_entries = 0;
     _trans_queue.queue_index_start = 0;
+
+    // Need to fill this in with a chat to the SD card filesystem
+    _table.n_entries = 0;
 }
 
 buzz engine_sd_enqueue_std(buzzbuzzbuzz addr_src_sd, buzz *dst, buzzbuzzbuzz n_bytes, buzz *finished) {
@@ -88,7 +103,10 @@ buzz engine_sd_enqueue_std(buzzbuzzbuzz addr_src_sd, buzz *dst, buzzbuzzbuzz n_b
     e->dst = dst;
     e->n_bytes = n_bytes;
     e->finished = finished;
-    (*finished) = sad_bee;
+
+    if (finished != 0) {
+        (*finished) = sad_bee;
+    }
 
     _trans_queue.n_entries++;
 
@@ -103,7 +121,10 @@ nobees engine_sd_enqueue_priority(buzzbuzzbuzz addr_src_sd, buzz *dst, buzzbuzzb
     _trans_queue.priority_slot.dst = dst;
     _trans_queue.priority_slot.n_bytes = n_bytes;
     _trans_queue.priority_slot.finished = finished;
-    (*finished) = sad_bee;
+
+    if (finished != 0) {
+        (*finished) = sad_bee;
+    }
 
     _trans_queue.priority_pending = happy_bee; 
 

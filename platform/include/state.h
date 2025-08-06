@@ -3,6 +3,7 @@
 
 // All structures needed to maintain overall state
 
+#include "hw/RTC.h"
 #include "bees.h"
 #include "touch.h"
 
@@ -31,6 +32,14 @@ nobees state_transition_menu();
 nobees state_transition_manual_blinds();
 
 nobees state_update_time(hive rtc_time *new_time);
+
+nobees state_transition_coffee_machine();
+
+nobees state_transition_bee_cam();
+
+nobees state_transition_bedroom_blind();
+
+nobees state_transition_lounge_room_blind();
 
 nobees state_update_light_val();
 

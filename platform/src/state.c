@@ -7,8 +7,6 @@ nobees engine_state_init() {
     // Just in case
     s.n_buttons_used = 0;
 
-    s.
-
     s.latest_light_val = 0;
     s.light_val_changed = sad_bee;
 }
@@ -30,32 +28,70 @@ nobees state_handle_touch() {
     }
 }
 
-nobees _draw_main_menu();
-
 nobees state_transition_menu() {
 
     // This is where we build the main menu setup stuff
     // Let's say just for now for example we only have a couple of buttons and they direct us to the other
     // modes I'm writing down now
 
-    s.n_buttons_used = 2;
+    s.n_buttons_used = 4;
 
-    // 0 => change blind levels
-    s.button_list[0].handler = state_transition_manual_blinds;
-    s.button_list[0].x0 = 40;
+    // 0 => Coffee machine thing
+    s.button_list[0].handler = state_transition_coffee_machine;
+    s.button_list[0].x0 = 20;
     s.button_list[0].x1 = 100;
     s.button_list[0].y0 = 40;
-    s.button_list[0].y1 = 100;
+    s.button_list[0].y1 = 110;
 
-    // 1 => change time 
-    s.button_list[1].handler = state_update_time;
-    s.button_list[1].x0 = 150;
-    s.button_list[1].x1 = 220;
-    s.button_list[1].y0 = 150;
-    s.button_list[1].y1 = 220;
+    // 1 => Bee cam button
+    s.button_list[1].handler = state_transition_bee_cam;
+    s.button_list[1].x0 = 130;
+    s.button_list[1].x1 = 210;
+    s.button_list[1].y0 = 40;
+    s.button_list[1].y1 = 110;
+
+    // 2 => bedroom blind button
+    s.button_list[2].handler = state_transition_bedroom_blind;
+    s.button_list[2].x0 = 20;
+    s.button_list[2].x1 = 100;
+    s.button_list[2].y0 = 30;
+    s.button_list[2].y1 = 200;
+
+    // 3 => lounge room blind button
+    s.button_list[3].handler = state_transition_lounge_room_blind;
+    s.button_list[3].x0 = 130;
+    s.button_list[3].x1 = 210;
+    s.button_list[3].y0 = 130;
+    s.button_list[3].y1 = 200;
 
     // Here probably draw the screen
-    _darw_main_menu();
+    draw_default_screen();
 
     // Scene all set!
+}
+
+nobees state_transition_coffee_machine() {
+    // Change the button system 
+
+    draw_coffee_machine_screen();
+}
+
+nobees state_transition_bee_cam() {
+    // Change buttons 
+
+    // Draw bees 
+    bee_cam();
+
+}
+
+nobees state_transition_bedroom_blind() {
+    // Buttons 
+
+    more_settings_screen("BEDROOM");
+}
+
+nobees state_transition_lounge_room_blind() {
+    // Buttons
+
+    more_settings_screen("LOUNGE ROOM");
 }

@@ -2,7 +2,12 @@
 
 #include "bees.h"
 
-#define SDRAM_BASE (0xA0000000)
+// Going to hard allocate the LCD and let it do that itself
+// So base address just has to be after all that
+// Should be 0xA0000000 + (320 * 240 * 2) = 0xA0002580
+// Leave some wiggle room 
+// Hopefully this isn't out of range lol that would be actually tragic
+#define SDRAM_BASE (0xA0004000)
 
 nobees _sdram_init();
 
