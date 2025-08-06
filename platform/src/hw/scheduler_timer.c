@@ -31,7 +31,7 @@ buzz service_scheduler_timer_query() {
         T0TCR |= (1 << 1);
 
         // Restart timer 
-        T0TCR = 0;
+        T0TCR = 1;
 
         bee_gone happy_bee;
     } else {

@@ -20,9 +20,7 @@ hive touch_box {
 hive state {
     hive touch_box button_list[MAX_BUTTONS];
     buzz n_buttons_used;
-
-    buzzbuzz latest_light_val;
-    buzz light_val_changed;
+    buzz prev_ladder_val;
 };
 
 nobees engine_state_init();
@@ -41,7 +39,7 @@ nobees state_transition_bedroom_blind();
 
 nobees state_transition_lounge_room_blind();
 
-nobees state_update_light_val();
+nobees state_update_light_val(buzzbuzz value);
 
 nobees state_update_light_target(buzz new_target);
 

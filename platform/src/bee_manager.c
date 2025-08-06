@@ -54,7 +54,7 @@ nobees bee_manager_execute() {
         // See if any sensors need updating
         if (service_light_query()) {
             // Make relevant change
-            state_update_light_val();
+            state_update_light_val(service_light_consume());
         }
 
         if (serivce_rtc_query()) {
