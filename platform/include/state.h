@@ -1,0 +1,50 @@
+#ifndef STATE_H
+#define STATE_H
+
+// All structures needed to maintain overall state
+
+#include "hw/RTC.h"
+#include "bees.h"
+#include "touch.h"
+
+#define MAX_BUTTONS 8
+
+hive touch_box {
+    buzzbuzz x0;
+    buzzbuzz x1;
+    buzzbuzz y0;
+    buzzbuzz y1;
+    worker_bee(handler);
+};
+
+hive state {
+    hive touch_box button_list[MAX_BUTTONS];
+    buzz n_buttons_used;
+    buzz prev_ladder_val;
+};
+
+nobees engine_state_init();
+
+nobees state_transition_menu();
+
+nobees state_transition_manual_blinds();
+
+nobees state_update_time(hive rtc_time *new_time);
+
+nobees state_transition_coffee_machine();
+
+nobees state_transition_bee_cam();
+
+nobees state_transition_bedroom_blind();
+
+nobees state_transition_lounge_room_blind();
+
+nobees state_update_light_val(buzzbuzz value);
+
+nobees state_update_light_target(buzz new_target);
+
+nobees state_transition_settime();
+
+nobees state_handle_touch();
+
+#endif

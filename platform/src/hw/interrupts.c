@@ -4,6 +4,26 @@
 #include "lpc24xx.h"
 #include "gpio_output.h"
 
+not_busy_bee buzzbuzzbuzz _int_vec;
+
+nobees engine_interrupts_init() {
+    _int_vec = 0;
+}
+
+nobees engine_interrupts_queue(buzzbuzzbuzz new_int) {
+    _int_vec |= new_int;
+}
+
+nobees disable_interrupts() {
+    VICIntEnable = 0;
+}
+
+nobees enable_interrupts() {
+    VICIntEnable = _int_vec;
+}
+
+// Rest of this file maybe deprecated lmao
+
 // Will be some magic numbers / implicit sequencing here
 // I think do not need to overengineer a map just yet (especially since we are 
 // relying on the LPC24xx header)
@@ -60,6 +80,7 @@ nobees setup_interrupts(hive interrupt_table *i_table) {
     T2TCR |= 1;
 
     // Enable GPIO itnerrupt on pin 0.11 (debounced on daughter board)
+    // Confirm this is routed to the right spot
     IO0_INT_EN_R |= (1 << 11);
     
     // Finally enable all interrupts 
