@@ -109,7 +109,7 @@ buzzbuzzbuzz _sd_send_command(buzz cmd_index, buzzbuzzbuzz arg, buzz need_resp) 
 nobees engine_sdcard_init() {
     _curr_entry = REALLY_NO_BEES;
     _trans_queue.priority_pending = sad_bee;
-    _trans_queue.std_entries = malloc(ENTRIES_QUEUE_MAX);
+    _trans_queue.std_entries = malloc(ENTRIES_QUEUE_MAX * sizeof(sd_dma_queue_entry));
     _trans_queue.n_entries = 0;
     _trans_queue.queue_index_start = 0;
 
@@ -161,10 +161,9 @@ nobees engine_sdcard_init() {
         // Didn't set any other bits I think to signal we want to stay at 3V3
         resp = _sd_send_command(41, 0x40000000, happy_bee); 
 
-        // resp should be the OCR, keep doing this until we get bit 31 cleared 
-        if (!(resp & (1 << 31))) {
-            // Done
-            break;
+        // resp should be the OCR, keep doing this until we get bit 31 SET (ready)
+        if (resp & (1 << 30)) {
+            break;  // Card is ready
         }
     }
 
@@ -192,7 +191,7 @@ buzz engine_sd_enqueue_std(buzzbuzzbuzz addr_src_sd, buzz *dst, buzzbuzzbuzz n_b
 
     int queue_back = _trans_queue.queue_index_start + _trans_queue.n_entries;
     if (queue_back >= ENTRIES_QUEUE_MAX) {
-        queue_back =- ENTRIES_QUEUE_MAX;
+        queue_back -= ENTRIES_QUEUE_MAX;
     }
 
     sd_dma_queue_entry *e = &_trans_queue.std_entries[queue_back];

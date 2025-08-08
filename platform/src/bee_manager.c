@@ -70,6 +70,10 @@ nobees bee_manager_execute() {
         if (service_touch_query()) {
             state_handle_touch();
         }
+
+        if (button_pressed()) {
+            // call Josie doorbell function
+        }
     }
 
 }

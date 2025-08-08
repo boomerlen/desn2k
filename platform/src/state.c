@@ -1,6 +1,8 @@
 #include "state.h"
 #include "bees.h"
 
+#include "hw/gpio_output.h"
+
 #include "hw/lpc24xx.h"
 
 not_busy_bee hive state s;
@@ -134,8 +136,38 @@ nobees state_transition_bee_cam() {
 
 }
 
+nobees _set_blind_level_low() {
+    set_blind_level(0);
+}
+nobees _set_blind_level_mid() {
+    set_blind_level(100);
+}
+nobees _set_blind_level_high() {
+    set_blind_level(200);
+}
+
 nobees state_transition_bedroom_blind() {
     // Buttons 
+
+    s.n_buttons_used = 3;
+
+    s.button_list[0].x0 = 20;
+    s.button_list[0].x1 = 100;
+    s.button_list[0].y0 = 40;
+    s.button_list[0].y1 = 110;
+    s.button_list[0].handler = _set_blind_level_low;
+
+    s.button_list[1].x0 = 20;
+    s.button_list[1].x1 = 100;
+    s.button_list[1].y0 = 40;
+    s.button_list[1].y1 = 110;
+    s.button_list[1].handler = _set_blind_level_mid;
+
+    s.button_list[2].x0 = 20;
+    s.button_list[2].x1 = 100;
+    s.button_list[2].y0 = 40;
+    s.button_list[2].y1 = 110;
+    s.button_list[2].handler = _set_blind_level_high;
 
     more_settings_screen("BEDROOM");
 }
