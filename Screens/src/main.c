@@ -27,10 +27,10 @@ int main(void) {
 	//Setup touchscreen
 	touch_init();
 	
-	
 	while(1) {
-		default_screen();
-		non_default_screen();
+		door_bell();
+		//default_screen();
+		//non_default_screen();
 	}
 }
 
@@ -76,10 +76,7 @@ void default_screen(void) {
 		if (xc0 < point_x && point_x < xc1 && yc0 < point_y && point_y < yc1){
 			draw_coffee_machine_screen();
 			return;
-		} //else if (point_x > 50) {
-			//door_bell();
-			//return; }
-		  else if (xbr0 < point_x && point_x < xbr1 && ybr0 < point_y && point_y < ybr1) {
+		} else if (xbr0 < point_x && point_x < xbr1 && ybr0 < point_y && point_y < ybr1) {
 			more_settings_screen("BEDROOM");
 			return;
 		} else if (xlr0 < point_x && point_x < xlr1 && ylr0 < point_y && point_y < ylr1) {
@@ -88,6 +85,10 @@ void default_screen(void) {
 		} else if(xbc0 < point_x && point_x < xbc1 && ybc0 < point_y && point_y < ybc1){
 			bee_cam();
 			return;
+		} else if (((FIO0PIN & 0x700) != 0) ? 1 : 0) { 
+			door_bell();
+			//add some delay here
+			return; 
 		}
 	}
 }	

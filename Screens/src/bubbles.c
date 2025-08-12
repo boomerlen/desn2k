@@ -40,11 +40,9 @@ void draw_default_screen(void) {
     // Coffee machine button
     lcd_fillRect(20, 40, 100, 110, WHITE);
     lcd_drawRect(20, 40, 100, 110, BLACK);
-    lcd_putString(25, 45, (unsigned char *)"Coffee machine");
-    lcd_fillcircle(60, 80, 15, DARK_GRAY);
-    lcd_line(55, 60, 55, 50, DARK_GRAY);
-    lcd_line(60, 60, 60, 50, DARK_GRAY);
-    lcd_line(65, 60, 65, 50, DARK_GRAY);
+    lcd_putString(30, 45, (unsigned char *)"Coffee");
+		lcd_putString(30, 60, (unsigned char *)"machine");
+    lcd_fillcircle(60, 90, 15, DARK_GRAY);
 
     // bee cam button
     lcd_fillRect(130, 40, 210, 110, WHITE);
@@ -68,22 +66,7 @@ void draw_default_screen(void) {
     lcd_drawRect(145, 165, 195, 190, DARK_GRAY);
     lcd_line(170, 165, 170, 190, DARK_GRAY);
 
-    // Multiple alternating rings
-    lcd_fillcircle(cx, cy, 32, BLACK);
-    lcd_fillcircle(cx, cy, 28, YELLOW);
-    lcd_fillcircle(cx, cy, 24, BLACK);
-    lcd_fillcircle(cx, cy, 20, YELLOW);
-
-    // White numbers only on top black ring
-    lcd_fontColor(WHITE, BLACK);
-    lcd_putString(cx - 4, cy - 24, (unsigned char *)"12");
-    lcd_putString(cx + 20, cy - 4, (unsigned char *)"3");
-    lcd_putString(cx - 4, cy + 14, (unsigned char *)"6");
-    lcd_putString(cx - 24, cy - 4, (unsigned char *)"9");
-
-    // Clock arms
-    lcd_line(cx, cy, cx, cy - 10, BLACK); // hour hand
-    lcd_line(cx, cy, cx + 12, cy, BLACK); // minute hand
+		draw_bee(40, 276, 15);
 
     // Digital clock centered beside it
     lcd_fontColor(BLACK, YELLOW);
@@ -99,18 +82,7 @@ void more_settings_screen(const char *room_name) {
     lcd_drawRect(5, 5, DISPLAY_WIDTH - 5, DISPLAY_HEIGHT - 5, BLACK);
 
     // Title
-    lcd_putString(70, 20, (unsigned char *)room_name);
-
-    // Auto mode label
-    lcd_putString(20, 60, (unsigned char *)"Automatic mode");
-
-    // Toggle switch
-    lcd_drawRect(150, 55, 220, 75, BLACK);
-    lcd_putString(155, 60, (unsigned char *)"OFF");
-    lcd_fillRect(185, 55, 220, 75, DARK_GRAY);
-    lcd_fontColor(WHITE, DARK_GRAY);
-    lcd_putString(190, 60, (unsigned char *)"ON");
-    lcd_fontColor(BLACK, WHITE);
+    lcd_putString(80, 40, (unsigned char *)room_name);
 
     // Daytime brightness
     lcd_putString(20, 110, (unsigned char *)"Daytime brightness");
@@ -126,8 +98,8 @@ void more_settings_screen(const char *room_name) {
 
     // Nighttime brightness
     lcd_putString(20, 180, (unsigned char *)"Nighttime brightness");
-    lcd_putString(20, 200, (unsigned char *)"0%%");
-    lcd_putString(200, 200, (unsigned char *)"100%%");
+    lcd_putString(20, 200, (unsigned char *)"0%");
+    lcd_putString(200, 200, (unsigned char *)"100%");
 
     // Nighttime buttons
     lcd_drawRect(70, 198, 90, 218, BLACK);  // Left arrow
@@ -162,43 +134,10 @@ void draw_coffee_machine_screen(void) {
     lcd_putString(20, 90, (unsigned char *)"Second Coffee");
     lcd_putString(140, 90, (unsigned char *)"11:00AM ON");
 
-    // Guest coffee label
-    lcd_putString(20, 120, (unsigned char *)"Guest Coffee");
-
-    // ON/OFF button outline
-    lcd_drawRect(135, 115, 205, 135, BLACK);
-    lcd_putString(140, 120, (unsigned char *)"OFF");
-
-    // ON bubble filled
-    lcd_fillRect(175, 115, 205, 135, DARK_GRAY);
-    lcd_fontColor(WHITE, DARK_GRAY);
-    lcd_putString(180, 120, (unsigned char *)"ON");
-
     // Reset font color
     lcd_fontColor(BLACK, WHITE);
-
-    // Draw saucer base (ellipse-style using lines)
-    lcd_line(80, 260, 160, 260, BLACK);     // base line
-    lcd_line(90, 255, 150, 255, BLACK);     // top of saucer
-
-    // Cup body (simple arc and bowl)
-    lcd_fillcircle(120, 230, 30, WHITE);    // cup fill
-    lcd_circle(120, 230, 30, BLACK);        // cup outline
-
-    // Coffee surface
-    lcd_fillcircle(120, 230, 20, BLACK);    // black coffee fill
-
-    // Handle (semi-ellipse on the right)
-    lcd_circle(150, 230, 10, BLACK);        // cup handle outline
-
-    // Steam (curved strokes with lines)
-    lcd_line(110, 180, 115, 160, BLACK);    // lower curl
-    lcd_line(115, 160, 120, 150, BLACK);
-    lcd_line(120, 150, 125, 140, BLACK);
-
-    lcd_line(125, 190, 130, 170, BLACK);    // upper curl
-    lcd_line(130, 170, 135, 160, BLACK);
-    lcd_line(135, 160, 140, 150, BLACK);
+	
+		draw_bee(80, 150, 20);
 		
 		// HOME button at the bottom
 		lcd_drawRect(70, 240, 170, 290, BLACK);      // button outline
@@ -208,7 +147,7 @@ void draw_coffee_machine_screen(void) {
 }
 
 
-int door_bell(void) {
+void door_bell(void) {
 		// Center point for bell
 	int center_x = 120;
 	int center_y = 140;
@@ -290,7 +229,7 @@ int door_bell(void) {
 
 	}
 
-int bee_cam(void) {
+void bee_cam(void) {
     lcd_fillScreen(BLACK);
 
     // Bold bee watch label
@@ -328,3 +267,5 @@ int bee_cam(void) {
     lcd_fontColor(BLACK, WHITE);
     lcd_putString(110, 260, (unsigned char *)"HOME");
 }
+
+
